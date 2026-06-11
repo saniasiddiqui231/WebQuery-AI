@@ -1,1 +1,1 @@
-# WebQuery-AI
+# WebQuery-Ai
