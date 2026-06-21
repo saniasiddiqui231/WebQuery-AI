@@ -1,1 +1,1 @@
-# WebQuery-Ai
+Webquery AI chatbot
