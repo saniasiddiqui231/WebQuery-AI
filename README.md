@@ -4,7 +4,7 @@ A Retrieval-Augmented Generation (RAG) chatbot that answers questions about a we
 
 The application scrapes website content, generates vector embeddings, stores them in ChromaDB, retrieves the most relevant information for a user query, and generates context-aware responses through a FastAPI backend.
 
-![Chatbot UI](assets/chatbot.png)
+![Chatbot UI](Screenshot(161).png)
 
 ## Demo Video
 
