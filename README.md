@@ -1,165 +1,150 @@
-# WebQuery-AI
+# WebQuery AI
 
-AI-powered chatbot that answers customer queries using information extracted from a company's website. The system processes website content, prepares it for retrieval, and will later use Large Language Models (LLMs) to provide accurate responses based on company-specific data.
+A Retrieval-Augmented Generation (RAG) chatbot that answers questions about a website using semantic search and Google's Gemini model.
 
-## 🚧 Project Status
+The application scrapes website content, generates vector embeddings, stores them in ChromaDB, retrieves the most relevant information for a user query, and generates context-aware responses through a FastAPI backend.
 
-**Under Development**  
-Completed up to **Phase 5: Text Chunking and Chunk Storage**
+![Chatbot UI](chatbot.png)
+
+## Demo Video
+
+🎥 [Watch the Demo](https://youtu.be/9vdJOx3UkR8?si=JjcHPklDRLW9BcQt)
+---
+
+## Features
+
+* Website scraping using Selenium
+* Text cleaning and chunking
+* Semantic embeddings using Sentence Transformers
+* Vector storage with ChromaDB
+* Retrieval-Augmented Generation (RAG)
+* Google Gemini integration
+* FastAPI REST API
+* Interactive chatbot interface built with HTML, CSS, and JavaScript
 
 ---
 
-## 📌 Features
-
-### Completed
-- Website content extraction
-- Data cleaning and preprocessing
-- Text chunking
-- Chunk storage in JSON format
-
-### Planned
-- Embedding generation
-- Vector database integration (ChromaDB)
-- Semantic search
-- Gemini/OpenAI integration
-- Customer support chatbot
-- Lead collection system
-- Web deployment
-
----
-
-## 🛠️ Tech Stack
-
-- Python
-- BeautifulSoup
-- Requests
-- JSON
-- LangChain (Upcoming)
-- ChromaDB (Upcoming)
-- Gemini API (Upcoming)
-- Flask/FastAPI (Upcoming)
-
----
-
-## 📂 Project Structure
-
+## Architecture
 ```text
-WebQuery-AI/
-│
-├── extraction/
-│   └── extract_data.py
-│
-├── chunking/
-│   └── chunk_data.py
-│
-├── data/
-│   ├── extracted_data.json
-│   └── chunks.json
-│
-├── requirements.txt
-│
-└── README.md
+                          ┌─────────────────────┐
+                          │    Website URLs     │
+                          └──────────┬──────────┘
+                                     │
+                                     ▼
+                          Selenium Web Scraper
+                                     │
+                                     ▼
+                         Text Cleaning & Chunking
+                                     │
+                                     ▼
+                     SentenceTransformer Embeddings
+                                     │
+                                     ▼
+                                ChromaDB
+                                     ▲
+                                     │
+                           Query Embedding
+                                     ▲
+                                     │
+                              User Question
+                                     │
+                                     ▼
+                      Retrieve Relevant Chunks
+                                     │
+                                     ▼
+                    Prompt + Retrieved Context
+                                     │
+                                     ▼
+                          Google Gemini LLM
+                                     │
+                                     ▼
+                              FastAPI Backend
+                                     │
+                                     ▼
+                       HTML • CSS • JavaScript UI
 ```
 
 ---
 
-## ⚙️ Workflow
+## Tech Stack
+
+| Category        | Technologies          |
+| --------------- | --------------------- |
+| Backend         | FastAPI, Python       |
+| Frontend        | HTML, CSS, JavaScript |
+| LLM             | Google Gemini         |
+| Vector Database | ChromaDB              |
+| Embeddings      | Sentence Transformers |
+| Web Scraping    | Selenium              |
+| Data Validation | Pydantic              |
+
+---
+
+## Workflow
+
+1. Scrape website content.
+2. Clean and split the text into chunks.
+3. Generate embeddings for every chunk.
+4. Store embeddings in ChromaDB.
+5. Convert the user's question into an embedding.
+6. Retrieve the most relevant chunks.
+7. Send the retrieved context and question to Gemini.
+8. Return the generated answer through the FastAPI API.
+9. Display the response in the chatbot interface.
+
+---
+
+## Installation
+
+```bash
+git clone <repository-url>
+
+cd WebQuery-AI
+
+python -m venv .venv
+
+# Activate virtual environment
+
+pip install -r requirements.txt
+```
+
+Create a `.env` file:
+
+```env
+GOOGLE_API_KEY=your_api_key_here
+```
+
+Create the vector database:
+
+```bash
+python -m tests.test_index
+```
+
+Run the application:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Open:
 
 ```text
-Website URL
-     │
-     ▼
-Data Extraction
-     │
-     ▼
-Data Cleaning
-     │
-     ▼
-Text Chunking
-     │
-     ▼
-Chunk Storage
-     │
-     ▼
-Embeddings (Upcoming)
-     │
-     ▼
-Vector Database (Upcoming)
-     │
-     ▼
-Semantic Search (Upcoming)
-     │
-     ▼
-LLM Response Generation (Upcoming)
+http://127.0.0.1:8000
 ```
 
 ---
 
-## ✅ Completed Phases
+## Future Improvements
 
-### Phase 1: Project Setup
-- Created project directory structure
-- Configured Python environment
-- Installed required dependencies
-
-### Phase 2: Website Data Extraction
-- Scraped website content using BeautifulSoup
-- Extracted relevant textual information
-- Stored extracted data in JSON format
-
-### Phase 3: Data Cleaning
-- Removed unwanted HTML elements
-- Cleaned and standardized extracted text
-- Prepared content for processing
-
-### Phase 4: Text Chunking
-- Split large text into smaller chunks
-- Optimized chunk size for retrieval and embedding generation
-- Improved data organization
-
-### Phase 5: Chunk Storage
-- Stored generated chunks in JSON format
-- Successfully processed and saved chunked data
-- Generated 2702 chunks for further processing
+* Support multiple websites
+* Scheduled website re-indexing
+* Response caching
+* Streaming LLM responses
+* Authentication and user sessions
+* Hybrid keyword + semantic retrieval
 
 ---
 
-## 🚀 Upcoming Phases
+## License
 
-### Phase 6
-- Generate embeddings using embedding models
-
-### Phase 7
-- Store embeddings in ChromaDB
-
-### Phase 8
-- Implement semantic similarity search
-
-### Phase 9
-- Integrate Gemini/OpenAI API
-
-### Phase 10
-- Develop chatbot backend using Flask/FastAPI
-
-### Phase 11
-- Create chatbot frontend interface
-
-### Phase 12
-- Implement lead collection system
-
-### Phase 13
-- Deploy application
-
----
-
-## 🎯 Project Goal
-
-To build an intelligent AI chatbot capable of answering customer queries using information extracted directly from a company's website through Retrieval-Augmented Generation (RAG).
-
----
-
-## 👥 Contributors
-
-- Sara Maryam
-- Sania siddiqui
-- Hidayah Kaunain
+This project is intended for educational and portfolio purposes.

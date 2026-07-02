@@ -1,0 +1,50 @@
+# -------------------------
+# FastAPI Backend
+# -------------------------
+fastapi
+uvicorn
+
+# -------------------------
+# Environment Variables
+# -------------------------
+python-dotenv
+
+# -------------------------
+# LangChain
+# -------------------------
+langchain
+langchain-core
+langchain-community
+langchain-text-splitters
+sentence-transformers
+langchain-huggingface
+
+# -------------------------
+# Google Gemini
+# -------------------------
+google-generativeai
+langchain-google-genai
+
+# -------------------------
+# Vector Database
+# -------------------------
+chromadb
+langchain-chroma
+
+# -------------------------
+# Web Scraping
+# -------------------------
+selenium
+beautifulsoup4
+requests
+
+# -------------------------
+# Database (Later)
+# -------------------------
+sqlalchemy
+
+# -------------------------
+# Validation
+# -------------------------
+pydantic
+gunicorn

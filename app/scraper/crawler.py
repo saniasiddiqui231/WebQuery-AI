@@ -1,7 +1,8 @@
 from selenium import webdriver
-from selenium.webdriver.common.by import By
+from selenium.webdriver.common.by import By  # type: ignore
 import time
-
+import json
+from pathlib import Path
 # ----------------------------
 # STEP 1: Open Homepage
 # ----------------------------
@@ -10,7 +11,7 @@ driver = webdriver.Chrome()
 
 homepage = "https://www.webkeyindia.com/"
 
-print("Opening homepage...")
+
 
 driver.get(homepage)
 
@@ -42,23 +43,10 @@ all_urls = list(set(all_urls))
 
 print(f"\nTotal Unique URLs Found: {len(all_urls)}")
 
-driver.quit()
 
-# ----------------------------
-# STEP 3: Create Output File
-# ----------------------------
-
-with open("website_data.txt", "w", encoding="utf-8") as file:
-    file.write("WEBKEY INDIA WEBSITE DATA\n")
-    file.write("=" * 80 + "\n")
-
-# ----------------------------
-# STEP 4: Scrape Each Page
-# ----------------------------
-
-driver = webdriver.Chrome()
 
 page_count = 0
+pages = []
 
 for url in all_urls:
 
@@ -68,28 +56,18 @@ for url in all_urls:
         driver.get(url)
 
         time.sleep(2)
+        page_title = driver.title
 
         page_text = driver.find_element(
             By.TAG_NAME,
             "body"
         ).text
 
-        with open(
-            "website_data.txt",
-            "a",
-            encoding="utf-8"
-        ) as file:
-
-            file.write("\n\n")
-            file.write("=" * 80)
-            file.write("\n")
-
-            file.write(f"URL: {url}\n")
-
-            file.write("=" * 80)
-            file.write("\n\n")
-
-            file.write(page_text)
+        pages.append({
+        "url": url,
+        "title": page_title,
+        "content": page_text
+})
 
         page_count += 1
 
@@ -102,7 +80,17 @@ for url in all_urls:
 # ----------------------------
 
 driver.quit()
+output_file = Path("data/raw/pages.json")
 
-print("\nScraping Completed!")
-print(f"Pages Scraped: {page_count}")
-print("Data saved in website_data.txt")
+output_file.parent.mkdir(parents=True, exist_ok=True)
+
+with open(output_file, "w", encoding="utf-8") as f:
+    json.dump(
+        pages,
+        f,
+        indent=4,
+        ensure_ascii=False
+    )
+
+print(f"\nSaved {len(pages)} pages to {output_file}")
+
