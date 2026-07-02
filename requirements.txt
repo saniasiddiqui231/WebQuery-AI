@@ -47,5 +47,4 @@ sqlalchemy
 # Validation
 # -------------------------
 pydantic
-gunicorn
-gunicorn app:app
+ 
