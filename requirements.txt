@@ -48,3 +48,4 @@ sqlalchemy
 # -------------------------
 pydantic
 gunicorn
+gunicorn app:app
